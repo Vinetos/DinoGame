@@ -38,7 +38,6 @@ class connectionGene {
   connectionGene clone(Node from, Node  to) {
     connectionGene clone = new connectionGene(from, to, weight, innovationNo);
     clone.enabled = enabled;
-
     return clone;
   }
 }

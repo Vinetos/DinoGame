@@ -77,8 +77,7 @@ class Player {
       posY = 0;
     }
 
-    if (!replay) {
-
+    if (!replay) { // On n'est pas en mode replay
       for (int i = 0; i< obstacles.size(); i++) {
         if (obstacles.get(i).collided(playerXpos, posY +dinoRun1.height/2, dinoRun1.width*0.5, dinoRun1.height)) {
           dead = true;
@@ -96,7 +95,7 @@ class Player {
           }
         }
       }
-    } else {//if replayign then move local obstacles
+    } else {// On est en mode replay : on bouge les obstacles
       for (int i = 0; i< replayObstacles.size(); i++) {
         if (replayObstacles.get(i).collided(playerXpos, posY +dinoRun1.height/2, dinoRun1.width*0.5, dinoRun1.height)) {
           dead = true;
@@ -149,10 +148,9 @@ class Player {
     move();
   }
   //----------------------------------------------------------------------------------------------------------------------------------------------------------
-  //get inputs for Neural network
+  // Récupère les entrées pour le réseau de neuronnes
   void look() {
     if (!replay) {
-      float temp = 0;
       float min = 10000;
       int minIndex = -1;
       boolean berd = false; 
@@ -226,7 +224,6 @@ class Player {
         }
       }
     } else {//if replaying then use local shit
-      float temp = 0;
       float min = 10000;
       int minIndex = -1;
       boolean berd = false; 
@@ -272,8 +269,6 @@ class Player {
         }
 
 
-
-
         //vision 6 is the gap between the this obstacle and the next one
         int bestIndex = minIndex;
         float closestDist = min;
@@ -308,12 +303,11 @@ class Player {
 
 
   //---------------------------------------------------------------------------------------------------------------------------------------------------------
-  //gets the output of the brain then converts them to actions
+  // Récupère la sortie du réseau de neuronnes et le convertie en action
   void think() {
-
     float max = 0;
     int maxIndex = 0;
-    //get the output of the neural network
+    //Récupère La sortie du réseau 
     decision = brain.feedForward(vision);
 
     for (int i = 0; i < decision.length; i++) {
@@ -355,7 +349,6 @@ class Player {
   //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   //since there is some randomness in games sometimes when we want to replay the game we need to remove that randomness
   //this fuction does that
-
   Player cloneForReplay() {
     Player clone = new Player();
     clone.brain = brain.clone();
@@ -376,12 +369,13 @@ class Player {
   }
 
   //---------------------------------------------------------------------------------------------------------------------------------------------------------
-  //fot Genetic algorithm
+  //for Genetic algorithm
   void calculateFitness() {
     fitness = score*score;
   }
 
   //---------------------------------------------------------------------------------------------------------------------------------------------------------
+  // Effectue un croisement
   Player crossover(Player parent2) {
     Player child = new Player();
     child.brain = brain.crossover(parent2.brain);

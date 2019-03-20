@@ -37,8 +37,7 @@ class Genome {
 
 
   //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  //returns the node with a matching number
-  //sometimes the nodes will not be in order
+  // Revoive le noeud correspondant au nombre
   Node getNode(int nodeNumber) {
     for (int i = 0; i < nodes.size(); i++) {
       if (nodes.get(i).number == nodeNumber) {
@@ -426,17 +425,15 @@ class Genome {
         float y = startY + ((float)(j + 1.0) * h)/(float)(allNodes.get(i).size() + 1.0);
         nodePoses.add(new PVector(x, y));
         nodeNumbers.add(allNodes.get(i).get(j).number);
-        if(i == layers -1){
+        if(i == layers -1) {
          println(i,j,x,y); 
-          
-          
         }
       }
     }
 
-    //draw connections 
-    stroke(0);
-    strokeWeight(2);
+    // Dessine les connexions 
+    stroke(0); // Trait noire
+    strokeWeight(2); // Eppaisseur
     for (int i = 0; i< genes.size(); i++) {
       if (genes.get(i).enabled) {
         stroke(0);

@@ -1,5 +1,6 @@
+// Classe d'un Noeud
 class Node {
-  int number;
+  int number; // Numéro unique du noeud
   float inputSum = 0;//current sum i.e. before activation
   float outputValue = 0; //after activation function is applied
   ArrayList<connectionGene> outputConnections = new ArrayList<connectionGene>();
@@ -34,27 +35,28 @@ class Node {
     }
   }
   //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//sigmoid activation function
+  //Fonction d'activation : Sigmoid
+  // Elle va de 0 à 1
   float sigmoid(float x) {
-    float y = 1 / (1 + pow((float)Math.E, -4.9*x));
+    float y = 1 / (1 + pow((float)Math.E, -4.9*x)); // 1 / ( 1 + exp (-4.9 * x) )
     return y;
   }
+  
   //----------------------------------------------------------------------------------------------------------------------------------------------------------
-  //returns whether this node connected to the parameter node
-  //used when adding a new connection 
+  // Renvoie vrai si ce noeud est connecté au noeud en paramètre
+  // Utilisé lors de l'ajout d'une connexion
   boolean isConnectedTo(Node node) {
-    if (node.layer == layer) {//nodes in the same layer cannot be connected
+    if (node.layer == layer) // Les noeuds d'une même couche ne peuvent pas être connectés
       return false;
-    }
 
-    //you get it
-    if (node.layer < layer) {
+    if (node.layer < layer) {// La couche du noeud est avant
       for (int i = 0; i < node.outputConnections.size(); i++) {
         if (node.outputConnections.get(i).toNode == this) {
           return true;
         }
       }
-    } else {
+      
+    } else {// La couche du noeud est après
       for (int i = 0; i < outputConnections.size(); i++) {
         if (outputConnections.get(i).toNode == node) {
           return true;
@@ -64,8 +66,9 @@ class Node {
 
     return false;
   }
+  
   //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  //returns a copy of this node
+  //Renvoie une copie du noeud
   Node clone() {
     Node clone = new Node(number);
     clone.layer = layer;
