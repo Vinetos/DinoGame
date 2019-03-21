@@ -1,3 +1,4 @@
+// Classe de définition des oiseaux
 class Bird {
   float w = 60;
   float h = 50;
@@ -5,12 +6,12 @@ class Bird {
   float posY;
   int flapCount = 0;
   int typeOfBird;
-//------------------------------------------------------------------------------------------------------------------------------------------------------
- //constructor
-  Bird(int type) {
+
+  //constructeur
+  Bird(int type) { // Type (random(3) )
     posX = width;
     typeOfBird = type;
-    switch(type) {
+    switch(type) { // Choix de la hateur de l'oiseay
     case 0:// Vol bas
       posY = 10 + h/2;
       break;
@@ -34,15 +35,14 @@ class Bird {
     }
     if(flapCount > 15){
      flapCount = -15; 
-      
     }
   }
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
   // Déplace le zozio
   void move(float speed) {
     posX -= speed;
   }
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+  
   // Renvoie si oui ou non l'oiseau est entré en colision avec le joueur
   boolean collided(float playerX, float playerY, float playerWidth, float playerHeight) {
     float playerLeft = playerX - playerWidth/2;
